@@ -16,4 +16,9 @@ class ProductAdapter{
     return products;
   }
 
+  static Product responseToInstance(Response response) {
+    Map<String, dynamic> json = jsonDecode(response.body);
+    return Product.fromJson(json);
+  }
+
 }

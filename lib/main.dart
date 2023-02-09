@@ -1,60 +1,39 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:hello_world/service/product_adapter.dart';
-import 'package:http/http.dart';
-
-import 'fragments/list_product_widget.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hello_world/pages/home.dart';
+import 'package:hello_world/pages/product.dart';
+import 'package:hello_world/pages/products.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: _router,
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter App'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  String url = "https://fakestoreapi.com/products";
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body: Center(
-        child: FutureBuilder<Response>(
-          future: get(Uri.parse(url)),
-          builder: (context, snapshot) {
-            if(snapshot.hasData && snapshot.data != null){
-              return ListProductsWidget(
-                  ProductAdapter.responseToList(snapshot.data!)
-              );
-            }else{
-              return const Center(child: CircularProgressIndicator());
-            }
-          }
-        ),
+        primarySwatch: Colors.yellow,
       ),
     );
   }
+
+  final _router = GoRouter(
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const HomePage(title: "Flutter App"),
+      ),
+      GoRoute(
+        path: '/product/:id',
+        builder: (context, state) => ProductPage(int.parse(state.params["id"]!)),
+      ),
+    ],
+  );
+
+
 }
