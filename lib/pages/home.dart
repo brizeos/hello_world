@@ -1,34 +1,43 @@
 import 'dart:convert';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:hello_world/fragments/list_product_widget.dart';
-import 'package:hello_world/pages/product.dart';
-import 'package:hello_world/pages/products.dart';
-import 'package:hello_world/service/openfactfood_service.dart';
-import 'package:hello_world/service/product_adapter.dart';
-import 'package:http/http.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hello_world/service/PictureService.dart';
+import 'package:hello_world/service/TakePictureScreen.dart';
+import 'package:hello_world/system/router_config.dart';
+import 'package:image_picker/image_picker.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
-
-  final String title;
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  String url = "https://fakestoreapi.com/products";
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
-      body:
-        Center(child:
-        const ProductsPage()
-        )
 
+    return Scaffold(
+      appBar: AppBar(title: const Text("Accueil")),
+      body: Center(
+        child: ListView(
+          children: [
+            Center(child:)
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          PictureService().init();
+          // context.goNamed(CustomRouterConfiguration.SINGLE_PRODUCT, params: {"id" : "3244081500005"});
+        },
+        child: const Icon(Icons.add, color: Colors.white),
+
+      ),
     );
   }
 }

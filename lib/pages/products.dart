@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:hello_world/fragments/list_product_widget.dart';
@@ -14,34 +16,11 @@ class ProductsPage extends StatefulWidget {
 }
 
 class _ProductsPageState extends State<ProductsPage> {
-  String url = "https://fakestoreapi.com/products";
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        // child: OpenfactfoodService.getProductByISBN("3263859883713")
-
-
-        child: FutureBuilder<Response>(
-          future: get(Uri.parse(url)),
-          builder: (context, snapshot) {
-            if(snapshot.hasData && snapshot.data != null){
-              return ListProductsWidget(
-                  ProductAdapter.responseToList(snapshot.data!)
-              );
-            }else if(snapshot.hasError){
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('this'),
-                duration: Duration(microseconds: 500),
-              ));
-              return Text("Une erreur s'est produite.");
-            }else{
-              return const Center(child: CircularProgressIndicator());
-            }
-          }
-        ),
-      ),
-    );
+    return Scaffold();
   }
+
+
 }

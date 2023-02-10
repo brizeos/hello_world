@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hello_world/bo/product.dart';
 
 class ListProductsWidget extends StatelessWidget {
-  final List<Product> products;
+  final List<ProductCustom> products;
 
   const ListProductsWidget(
       this.products, {

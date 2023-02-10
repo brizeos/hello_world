@@ -5,12 +5,12 @@ import 'package:http/http.dart';
 
 class OpenfactfoodAdapter{
 
-  static List<Product> responseToList(Response response) {
-    List<Product> products = [];
+  static List<ProductCustom> responseToList(Response response) {
+    List<ProductCustom> products = [];
     List<dynamic> json = jsonDecode(response.body)["products"];
 
     json.forEach((v) {
-      products.add(Product.fromOffJson(v));
+      products.add(ProductCustom.fromOffJson(v));
     });
 
     return products;

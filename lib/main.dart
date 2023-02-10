@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hello_world/pages/home.dart';
-import 'package:hello_world/pages/product.dart';
-import 'package:hello_world/pages/products.dart';
+import 'package:hello_world/system/router.dart';
+import 'package:openfoodfacts/model/UserAgent.dart';
+import 'package:openfoodfacts/openfoodfacts.dart';
+import 'package:openfoodfacts/utils/CountryHelper.dart';
+import 'package:openfoodfacts/utils/OpenFoodAPIConfiguration.dart';
 
 void main() {
+  offConfiguration();
   runApp(MyApp());
+}
+
+void offConfiguration() {
+  OpenFoodAPIConfiguration.userAgent = const UserAgent(name: "Brizeos");
+  OpenFoodAPIConfiguration.globalLanguages = <OpenFoodFactsLanguage>[
+    OpenFoodFactsLanguage.FRENCH
+  ];
+  OpenFoodAPIConfiguration.globalCountry = OpenFoodFactsCountry.FRANCE;
 }
 
 class MyApp extends StatelessWidget {
@@ -14,26 +24,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: _router,
+      routerConfig: CustomRouter().routes(),
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.yellow,
+        primarySwatch: Colors.purple,
       ),
     );
   }
-
-  final _router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const HomePage(title: "Flutter App"),
-      ),
-      GoRoute(
-        path: '/product/:id',
-        builder: (context, state) => ProductPage(int.parse(state.params["id"]!)),
-      ),
-    ],
-  );
 
 
 }
